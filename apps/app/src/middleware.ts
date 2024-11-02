@@ -14,9 +14,14 @@ export async function middleware(request: NextRequest) {
     I18nMiddleware(request),
   );
 
-  if (!request.nextUrl.pathname.endsWith("/login") && !user) {
+  if (
+    !(
+      request.nextUrl.pathname.endsWith("/login") ||
+      request.nextUrl.pathname.endsWith("/signup")
+    ) &&
+    !user
+  )
     return NextResponse.redirect(new URL("/login", request.url));
-  }
 
   return response;
 }
